@@ -1,0 +1,61 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  
+  
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: -300px -280px;
+    zoom: 0.7;
+    height: 100%;
+    width: 100%;
+}
+.b1 {
+    color: #cb6ce6;
+    border: 6px solid #cb6ce6;
+    border-radius:15px;
+    padding: 15px 25px;
+    font-size: 30px;
+    font-family: tahoma;
+    letter-spacing:5px;
+    cursor: pointer;
+    font-weight: bold;
+    filter: drop-shadow(0 0 15px #cb6ce6) drop-shadow(0 0 50px #cb6ce6) contrast(2) brightness(2);
+    transition: .5s;
+    position:absolute;
+    top: 940px; left: 1110px;
+  }
+
+  .b2 {
+    color: #cb6ce6;
+    border: 6px solid #cb6ce6;
+    border-radius:15px;
+    padding: 15px 25px;
+    font-size: 30px;
+    font-family: tahoma;
+    letter-spacing:5px;
+    cursor: pointer;
+    font-weight: bold;
+    filter: drop-shadow(0 0 15px #cb6ce6) drop-shadow(0 0 50px #cb6ce6) contrast(2) brightness(2);
+    transition: .5s;
+    position:absolute;
+    top: 940px; left: 640px;
+  }
+
+  .b1:hover {
+    color: #58C6D5;
+    background-color: #cb6ce6;
+    filter: drop-shadow(0 0 20px #cb6ce6) contrast(2) brightness(1.5);
+  }
+
+  .b2:hover {
+    color: #58C6D5;
+    background-color: #cb6ce6;
+    filter: drop-shadow(0 0 20px #cb6ce6) contrast(2) brightness(1.5);
+  }
