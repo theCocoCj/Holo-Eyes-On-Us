@@ -21,6 +21,11 @@ Installation server (for ubuntu):
 - npm i child_process
 - npm start (to start the server)
 
+installation sever (for windows)
+- install nodejs
+- install npm
+- follow linux instructions from the 4 line
+
 for browser application:
 - go to http://severino.t47.it:3000/downloads
 - download the .py file for the camera
