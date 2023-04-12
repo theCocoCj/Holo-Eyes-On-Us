@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>LET'S PLAY!</title>
+
+        <link rel="stylesheet" href="css/pianoforte.css">
+        <link rel="stylesheet" href="css/pageComponents.css">
+        <link rel="stylesheet" href="css/infoPagePiano.css">
+        <link rel="stylesheet" href="css/piano2D.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script type="text/javascript" nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script type="text/javascript" src="js/url.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/calcoloCalibrazione.js"></script>
+        <script type="text/javascript" src="js/indexs.js"></script>
+        <script type="text/javascript" src="js/requests_answers.js"></script>
+        <script type="text/javascript" src="js/piano.js"></script>
+    </head>
+
+
+    <script type="text/javascript">
+        pianoLibero = false;
+    </script>
+
+    <body style="background-color: rgba(0, 0, 0, 0.75)">
+        <div id="sopra">
+            <section class="piano2D">
+                <div class="piano__keys disabled-keys" id="piano-2d">
+                    <div class="key white" data-note="1"><span>TAB</span></div>
+                    <div class="key black" data-note="2"><span>1</span></div>
+                    <div class="key white" data-note="3"><span>q</span></div>
+                    <div class="key black" data-note="4"><span>2</span></div>
+                    <div class="key white" data-note="5"><span>w</span></div>
+                    <div class="key white" data-note="6"><span>e</span></div>
+                    <div class="key black" data-note="7"><span>3</span></div>
+                    <div class="key white" data-note="8"><span>r</span></div>
+                    <div class="key black" data-note="9"><span>4</span></div>
+                    <div class="key white" data-note="10"><span>t</span></div>
+                    <div class="key black" data-note="11"><span>5</span></div>
+                    <div class="key white" data-note="12"><span>y</span></div>
+                    <div class="key white" data-note="13"><span>u</span></div>
+                    <div class="key black" data-note="14"><span>6</span></div>
+                    <div class="key white" data-note="15"><span>i</span></div>
+                    <div class="key black" data-note="16"><span>7</span></div>
+                    <div class="key white" data-note="17"><span>o</span></div>
+                    <div class="key white" data-note="18"><span>p</span></div>
+                    <div class="key black" data-note="19"><span>8</span></div>
+                    <div class="key white" data-note="20"><span>a</span></div>
+                    <div class="key black" data-note="21"><span>9</span></div>
+                    <div class="key white" data-note="22"><span>s</span></div>
+                    <div class="key black" data-note="23"><span>0</span></div>
+                    <div class="key white" data-note="24"><span>d</span></div>
+                </div>
+            </section>
+
+            <div id="info">
+                <div id="durata-canzone">
+                    <p id="testo">00:00 - 00:00</p>
+                </div>
+                <div class="menuSong" id="menu">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 220px; width: 100%; height: 50%; font-size: 35px;">
+                        SCEGLI LA BASE
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" id="ul-menu"></ul>
+                </div>
+                <div id="volume">
+                    <div id="barra-volume">
+                        <div id="_0" class="btn-volume"><div></div></div>
+                        <div id="_25" class="btn-volume"><div></div></div>
+                        <div id="_50" class="btn-volume"><div></div></div>
+                        <div id="_75" class="btn-volume"><div></div></div>
+                        <div id="_100" class="btn-volume"><div></div></div>
+                    </div>
+                    <div id="rotella-volume" class="_100_"></div>
+                </div>
+            </div>
+        </div>
+        <div id="fondo">
+            <a href="index.html" style="color: white"><ion-icon name="home-outline"></ion-icon></a>
+            <div id="div-section">
+                <section class="piano" id="piano">
+                    <button onclick="sound('C2')" id="C2" type="button" tabindex="-1" class="key-1" title="C"></button>
+                    <button onclick="sound('Dd2')" id="Dd2" type="button" tabindex="-1" class="key-2" title="C#/Db"></button>
+                    <button onclick="sound('D2')" id="D2" type="button" tabindex="-1" class="key-3" title="D"></button>
+                    <button onclick="sound('Eb2')" id="Eb2" type="button" tabindex="-1" class="key-2" title="D#/Eb"></button>
+                    <button onclick="sound('E2')" id="E2" type="button" tabindex="-1" class="key-5" title="E"></button>
+                    <button onclick="sound('F2')" id="F2" type="button" tabindex="-1" class="key-6" title="F"></button>
+                    <button onclick="sound('Gb2')" id="Gb2" type="button" tabindex="-1" class="key-2" title="F#/Gb"></button>
+                    <button onclick="sound('G2')" id="G2" type="button" tabindex="-1" class="key-8" title="G"></button>
+                    <button onclick="sound('Ab2')" id="Ab2" type="button" tabindex="-1" class="key-2" title="G#/Ab"></button>
+                    <button onclick="sound('A2')" id="A2" type="button" tabindex="-1" class="key-10" title="A"></button>
+                    <button onclick="sound('Bb2')" id="Bb2" type="button" tabindex="-1" class="key-2" title="A#/Bb"></button>
+                    <button onclick="sound('B2')" id="B2" type="button" tabindex="-1" class="key-12" title="B"></button>
+                    <button onclick="sound('C3')" id="C3" type="button" tabindex="-1" class="key-1" title="C"></button>
+                    <button onclick="sound('Db3')" id="Db2" type="button" tabindex="-1" class="key-2" title="C#/Db"></button>
+                    <button onclick="sound('D3')" id="D3" type="button" tabindex="-1" class="key-3" title="D"></button>
+                    <button onclick="sound('Eb3')" id="Eb3" type="button" tabindex="-1" class="key-2" title="D#/Eb"></button>
+                    <button onclick="sound('E3')" id="E3" type="button" tabindex="-1" class="key-5" title="E"></button>
+                    <button onclick="sound('F3')" id="F3" type="button" tabindex="-1" class="key-1" title="C"></button>
+                    <button onclick="sound('Gb3')" id="Gb3" type="button" tabindex="-1" class="key-2" title="C#/Db"></button>
+                    <button onclick="sound('G3')" id="G3" type="button" tabindex="-1" class="key-3" title="D"></button>
+                    <button onclick="sound('Ab3')" id="Ab3" type="button" tabindex="-1" class="key-2" title="D#/Eb"></button>
+                    <button onclick="sound('A3')" id="A3" type="button" tabindex="-1" class="key-5" title="E"></button>
+                    <button onclick="sound('Bb3')" id="Bb3" type="button" tabindex="-1" class="key-2" title="C#/Db"></button>
+                    <button onclick="sound('B3')" id="B3" type="button" tabindex="-1" class="key-3" title="D"></button>
+                </section>
+            </div>
+            <div id="stop-resume-btn" style="color: white" onclick="setPauseResume()"><ion-icon name="pause-outline"></ion-icon></div>
+        </div>
+    </body>
+</html>
