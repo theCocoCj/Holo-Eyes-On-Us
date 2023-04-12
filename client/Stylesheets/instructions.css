@@ -1,0 +1,17 @@
+h2 {
+    color: green;
+    letter-spacing: 0.2em;
+    font-size: 35px;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}

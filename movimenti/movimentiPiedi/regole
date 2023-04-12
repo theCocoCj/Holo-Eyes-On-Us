@@ -1,0 +1,11 @@
+se visibility < 0.65 --> il piede o il tallone in questione non è inquadrato bene
+
+se z <= 0 --> il piede o il tallone sono per aria
+se z > 0 --> piede è per terra
+
+la x sarà minore alla sinistra del giocatore
+
+le y aumenta se il giocatore si avvicina alla webcam
+
+LA POSIZIONE PUNTA PER ARIA E TALLONE PER TERRA O VICERVERSA PUÒ DARE ERRORI NEI DATI, MA PRATICAMENTE SEMPRE ALMENO UNO
+    DEI DATI È SEGNATO PER TERRA E QUINDI DIVENTA ININFLUENTE PER IL PROGETTO
