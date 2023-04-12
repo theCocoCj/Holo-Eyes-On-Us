@@ -1,0 +1,120 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title LET&apos;S PLAY!
+        link(rel='stylesheet' href='/stylesheets/pianoforte.css')
+        link(rel='stylesheet' href='/stylesheets/pageComponents.css')
+        link(rel='stylesheet' href='/stylesheets/infoPagePiano.css')
+        link(rel='stylesheet' href='/stylesheets/piano2D.css')
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ' crossorigin='anonymous')
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ' crossorigin='anonymous')
+        script(type='text/javascript' src='/javascripts/url.js')
+        script(type='module' src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js')
+        script(type='text/javascript' nomodule='' src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js')
+        script(type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js' integrity='sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe' crossorigin='anonymous')
+        script(type='text/javascript' src='/javascripts/calcoloCalibrazione.js')
+        script(type='text/javascript' src='/javascripts/indexs.js')
+        script(type='text/javascript' src='/javascripts/requests_answers.js')
+        script(type='text/javascript' src='/javascripts/piano.js')
+    script(type='text/javascript').
+        pianoLibero = true;
+
+    body(style='background-color: rgba(0, 0, 0, 0.75)')
+        #sopra
+            section.piano2D
+                #piano-2d.piano__keys.disabled-keys
+                    .key.white(data-note='1')
+                        span TAB
+                    .key.black(data-note='2')
+                        span 1
+                    .key.white(data-note='3')
+                        span q
+                    .key.black(data-note='4')
+                        span 2
+                    .key.white(data-note='5')
+                        span w
+                    .key.white(data-note='6')
+                        span e
+                    .key.black(data-note='7')
+                        span 3
+                    .key.white(data-note='8')
+                        span r
+                    .key.black(data-note='9')
+                        span 4
+                    .key.white(data-note='10')
+                        span t
+                    .key.black(data-note='11')
+                        span 5
+                    .key.white(data-note='12')
+                        span y
+                    .key.white(data-note='13')
+                        span u
+                    .key.black(data-note='14')
+                        span 6
+                    .key.white(data-note='15')
+                        span i
+                    .key.black(data-note='16')
+                        span 7
+                    .key.white(data-note='17')
+                        span o
+                    .key.white(data-note='18')
+                        span p
+                    .key.black(data-note='19')
+                        span 8
+                    .key.white(data-note='20')
+                        span a
+                    .key.black(data-note='21')
+                        span 9
+                    .key.white(data-note='22')
+                        span s
+                    .key.black(data-note='23')
+                        span 0
+                    .key.white(data-note='24')
+                        span d
+            #info
+                #volume
+                    #barra-volume
+                        #_0.btn-volume
+                            div
+                        #_25.btn-volume
+                            div
+                        #_50.btn-volume
+                            div
+                        #_75.btn-volume
+                            div
+                        #_100.btn-volume
+                            div
+                    #rotella-volume._100_
+        #fondo
+            a(href='/game' style='color: white')
+                ion-icon(name='home-outline')
+            #div-section
+                section#piano.piano
+                    button#C2.key-1(onclick="sound('C2')" type='button' tabindex='-1' title='C')
+                    button#Dd2.key-2(onclick="sound('Dd2')" type='button' tabindex='-1' title='C#/Db')
+                    button#D2.key-3(onclick="sound('D2')" type='button' tabindex='-1' title='D')
+                    button#Eb2.key-2(onclick="sound('Eb2')" type='button' tabindex='-1' title='D#/Eb')
+                    button#E2.key-5(onclick="sound('E2')" type='button' tabindex='-1' title='E')
+                    button#F2.key-6(onclick="sound('F2')" type='button' tabindex='-1' title='F')
+                    button#Gb2.key-2(onclick="sound('Gb2')" type='button' tabindex='-1' title='F#/Gb')
+                    button#G2.key-8(onclick="sound('G2')" type='button' tabindex='-1' title='G')
+                    button#Ab2.key-2(onclick="sound('Ab2')" type='button' tabindex='-1' title='G#/Ab')
+                    button#A2.key-10(onclick="sound('A2')" type='button' tabindex='-1' title='A')
+                    button#Bb2.key-2(onclick="sound('Bb2')" type='button' tabindex='-1' title='A#/Bb')
+                    button#B2.key-12(onclick="sound('B2')" type='button' tabindex='-1' title='B')
+                    button#C3.key-1(onclick="sound('C3')" type='button' tabindex='-1' title='C')
+                    button#Db2.key-2(onclick="sound('Db3')" type='button' tabindex='-1' title='C#/Db')
+                    button#D3.key-3(onclick="sound('D3')" type='button' tabindex='-1' title='D')
+                    button#Eb3.key-2(onclick="sound('Eb3')" type='button' tabindex='-1' title='D#/Eb')
+                    button#E3.key-5(onclick="sound('E3')" type='button' tabindex='-1' title='E')
+                    button#F3.key-1(onclick="sound('F3')" type='button' tabindex='-1' title='C')
+                    button#Gb3.key-2(onclick="sound('Gb3')" type='button' tabindex='-1' title='C#/Db')
+                    button#G3.key-3(onclick="sound('G3')" type='button' tabindex='-1' title='D')
+                    button#Ab3.key-2(onclick="sound('Ab3')" type='button' tabindex='-1' title='D#/Eb')
+                    button#A3.key-5(onclick="sound('A3')" type='button' tabindex='-1' title='E')
+                    button#Bb3.key-2(onclick="sound('Bb3')" type='button' tabindex='-1' title='C#/Db')
+                    button#B3.key-3(onclick="sound('B3')" type='button' tabindex='-1' title='D')
+            #stop-resume-btn(style='color: white' onclick='setPauseResume()')
+                ion-icon(name='pause-outline')

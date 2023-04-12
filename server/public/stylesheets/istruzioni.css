@@ -1,0 +1,9 @@
+#corpo-centrale {
+    margin: 30px 50px 50px 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+    gap: 30px;
+}

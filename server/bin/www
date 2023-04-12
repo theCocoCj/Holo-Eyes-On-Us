@@ -1,0 +1,227 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+let app = require('../app');
+let debug = require('debug')('server:server');
+let http = require('http');
+let WebSocket = require('ws');
+let { readFile, writeFile } = require('fs');
+const { exec } = require("child_process");
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+let port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+/**
+ * Server creation = use function which takes "app" parameter to create server.
+ * Creating the web socket with the "WebSocketServer" function which takes the server as a parameter.
+ * Writing a .txt file to save the camera status (on or off).
+ */
+
+let server = http.createServer(app);
+let wss = new WebSocket.WebSocketServer({ server: server });
+writeFile('files/statoCamera.txt', 'spenta', function(err) { });
+let cameraAccesa = false;
+
+/*CONSTANTS FOR REQUESTS = requests for actions called using these.*/
+const REQ = {
+  CALIBR_FATTA: '100', // if the calibration was already done
+  ACCENDI_CAM: '101',
+  SEND_POSITION: '102',
+  STOP_SEND_POSITION: '103',
+  SAVE_CALIBR: '104',
+  GET_DATI_CALIBR: '105',
+  FOLLOW_POSITION: '106',
+  CHECK_LOGIN: '107',
+  CLOSE_CAMERA: '108'
+};
+
+/*CONSTANTS FOR RESPONSES = requests for actions called using these.*/
+const ANS = {
+  CALIBR_FATTA: {
+    FALSE: '200',
+    TRUE: '201'
+  },
+  ACCENDI_CAM: '202',
+  SEND_POSITION: '203',
+  SAVE_CALIBR: '204',
+  GET_DATI_CALIBR: '205',
+  CHECK_LOGIN: {
+    FALSE: '206',
+    TRUE: '207'
+  }
+};
+
+let camAlreadyConnected = false;
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+wss.on('connection', function connection(ws) {
+  let interval;
+
+  ws.on('message', function incoming(message) {
+    message = new TextDecoder('utf-8').decode(message);   //we compare the decoding saved in "message" with the constant for successful calibration
+
+    // on receiving of the date from the user's camera
+    if(message.indexOf(REQ.FOLLOW_POSITION + '_') === 0) {
+      cameraAccesa = true;
+      writeFile('files/lm.txt', message.split(REQ.FOLLOW_POSITION + '_')[1], function (err) {
+        if (err) throw err;
+      });
+    } else if(message === REQ.CLOSE_CAMERA)
+      camAlreadyConnected = false;
+    else if (message === REQ.CALIBR_FATTA) {
+      readFile('files/calibrazione.json', {encoding: 'utf-8'}, function (err, data) { //read status file and use function on err and date to be able to check for errors and pass data on the "json" variable
+        if (err)//if "err" (type try/catch) is true, raise the error and save in "json" the data contained in the .Json file using the parse function
+          throw err;
+        let json = JSON.parse(data);
+        if (json.fatta)//check if the calibration has already been performed and I send the response messages from the server to confirm the calibration or not
+          ws.send(ANS.CALIBR_FATTA.TRUE);
+        else
+          ws.send(ANS.CALIBR_FATTA.FALSE);
+      });
+    } else if (message === REQ.ACCENDI_CAM) {
+      /*readFile('files/statoCamera.txt', {encoding: 'utf-8'}, function (err, data) {
+        if (err)
+          throw err;
+        if (data == 'accesa')
+          ws.send(ANS.ACCENDI_CAM);
+        else {
+          exec('python3 python/camera.py', function (error, stdout, stderr) {
+            if (error) throw error;
+          });
+          let int = setInterval(() => {
+            readFile('files/statoCamera.txt', {encoding: 'utf-8'}, function (err, data) {
+              if (err)
+                throw err;
+              else if (data != 'spenta') {
+                clearInterval(int);
+                ws.send(ANS.ACCENDI_CAM);
+              }
+            });
+          }, 1000);
+        }
+      });*/
+      let int = setInterval(() => {
+        if(cameraAccesa) {  // check if the cam is powered on every 200ms
+          clearInterval(int);
+          ws.send(ANS.ACCENDI_CAM);
+        }
+      }, 200);
+    } else if(message === REQ.SEND_POSITION) { //sending positions on client request every 100 ms
+      interval = setInterval(function() {
+        readFile('files/lm.txt', {encoding: 'utf-8'}, function (err, data) {
+          if (err)
+            throw err;
+          else
+            ws.send(ANS.SEND_POSITION + '_' + data);//web server response
+        });
+      }, 100);
+    } else if(message === REQ.STOP_SEND_POSITION)//when the condition is verified, the sending of the positions ends and the setInterval is reset with clearInterval
+      clearInterval(interval);
+    else if(message.indexOf(REQ.SAVE_CALIBR + '_') === 0) {//request to save the calibration done
+      message = JSON.parse(message.split(REQ.SAVE_CALIBR + '_')[1]);//I take the second element of the array
+      let jsonToSave = { //set the entire Json file to null
+        fatta: true,
+        a_sx: null,
+        a_dx: null,
+        b_sx: null,
+        b_dx: null
+      };
+
+      jsonToSave.a_sx = message.a_sx; //I load the new data for each of the 4 points in the Json file
+      jsonToSave.b_sx = message.b_sx;
+      jsonToSave.a_dx = message.a_dx;
+      jsonToSave.b_dx = message.b_dx;
+
+      writeFile('files/calibrazione.json', JSON.stringify(jsonToSave), function(err) {//Json file writing
+        if(err)
+          throw err;
+        ws.send(ANS.SAVE_CALIBR);//sending of the saving response from the web server
+      });
+    } else if(message === REQ.GET_DATI_CALIBR) {//request to send calibration data
+      readFile('files/calibrazione.json', { encoding: 'utf-8' }, function (err, data) {//read calibration file to return the required data
+        if (err)
+          throw err;
+        ws.send(ANS.GET_DATI_CALIBR + '_' + data);//sending of the message containing the data by the web server
+      });
+    }
+  });
+});
+
+
+    /**
+     * Normalize a port into a number, string, or false.
+     */
+
+function normalizePort(val) {
+  let port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  let bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  let addr = server.address();
+  let bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

@@ -1,0 +1,32 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title Severini: official site
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/index.css')
+body
+    header
+        img(src='/images/logo.png')
+        nav
+            a.active(href='#') Home
+            a(href='/istruzioni') Istruzioni e uso
+            a(href='/downloads') Download
+            a(href='/game' target='_blank') Let's play
+    section
+        h2 BENVENUTO SUL SITO UFFICIALE DEI SEVERINI
+        div#corpo-centrale
+            div#spieg
+                p La nostra idea &egrave; quella di ricreare un pianoforte olografico giocabile con l&apos;uso dei nostri piedi, in modo da indurre il movimento di una persona ma anche richiamare l&apos;immaginazione.
+                p L&apos;intelligenza che stiamo usando per il body tracking si chiama OpenCV, in questo modo, con l&apos;aiuto di una telecamera possiamo tracciare la posizione del corpo in modo che il pianoforte possa essere riprodotto facilmente.
+                p Questo gioco &egrave; progettato e creato da noi per le persone che soffrono di sclerosi multipla o sclerosi laterale amiotrofica. Con questo programma, possono suonare il pianoforte comunque.
+            div#sla
+                img(src='/images/sla.png')
+                p#p-sla La SM e la SLA sono una patologia neurodegenerativa del sistema nervoso centrale, si manifesta visivamente, sensibilit&agrave;, muscoli e molti altri problemi.
+
+script(type='text/javascript').
+    let nav = document.getElementsByTagName('nav')[0];
+    let img = document.getElementsByTagName('img')[0];
+    setInterval(() => {
+        nav.style.width = (innerWidth - img.width) + 'px';
+    }, 200);

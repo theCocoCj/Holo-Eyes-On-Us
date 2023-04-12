@@ -1,0 +1,22 @@
+doctype html
+html(lang="it")
+    head
+        meta(charset="UTF-8")
+        title Login
+        link(rel="stylesheet", href="bootstrap/bootstrap.min.css")
+        link(rel="stylesheet", href="/stylesheets/login.css")
+    body
+        h1 Accedi subito per controllare il braccio meccanico
+        if !accPossibile
+            h2.error Non puoi eseguire il login
+        else if datiSbagliati
+            h2.error I dati inseriti non sono corretti
+        form(action="/session/interface", method="post") 
+            div.input-group.mb-3
+                span#basic-addon1.input-group-text Username
+                input.form-control(type='text' placeholder='Username' aria-label='username' aria-describedby='basic-addon1' name='username')
+            div.input-group.mb-3
+                span#basic-addon2.input-group-text Password
+                input.form-control(type='password' aria-label='Password' aria-describedby='basic-addon1' name='password')
+            if accPossibile
+                input#btn(type="submit" value="Accedi")

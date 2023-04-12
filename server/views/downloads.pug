@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title Severini official site
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/download.css')
+    body
+        header
+            img(src='/images/logo.png')
+            nav
+                a(href='/') Home
+                a(href='/istruzioni') Istruzioni e uso
+                a.active(href='#') Download
+                a(href='/game' target='_blank') Let's play
+        section
+            h2 SCARICA I FILE NECESSARI
+            #corpo-centrale
+                #download-python
+                    h3 Scarica il file per webcam integrata o esterna
+                    .div-btn
+                        a.a(href='/downloadPyInt') Integrata
+                        a.a(href='/downloadPyExt') Esterna
+                #download-pr
+                    h3 Scarica il file per webcam integrata o esterna
+                    .div-btn
+                        #linux
+                            a.a(href='/targz') tar.gz
+                            a.a(href='/deb') deb
+                        a.a(href='/zip') Windows
